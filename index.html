@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header class="app-header">
+        <h1>SmartTrack</h1>
+        <nav aria-label="Основная навигация">
+            <div class="nav-tabs" role="tablist" aria-label="Разделы приложения">
+                <button class="tab-btn active" role="tab" data-tab="dashboard"> Дашборд</button>
+                <button class="tab-btn" role="tab" data-tab="schedule"> Расписание</button>
+                <button class="tab-btn" role="tab" data-tab="plan"> Планирование задач</button>
+                <button class="tab-btn" role="tab" data-tab="materials"> Материалы</button>
+                <button class="tab-btn" role="tab" data-tab="settings"> Настройки</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="tab-content active" aria-label="Главная панель">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>Задачи на неделю</h3>
+                    <ul class="task-list" id="weekTasksList" aria-label="Список задач на текущую неделю">
+                        <li>Загрузка...</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Общий прогресс</h3>
+                    <div class="progress-bar" role="progressbar" aria-label="Прогресс выполнения задач" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-fill" id="globalProgressFill"></div>
+                    </div>
+                    <p id="progressStat">0% выполненных задач</p>
+                    <button class="btn btn-secondary" id="resetDemoBtn"> Сбросить демо-данные</button>
+                </div>
+                <div class="card">
+                    <h3>Ближайшие занятия</h3>
+                    <ul class="schedule-list" id="upcomingEvents" aria-label="Предстоящие занятия"></ul>
+                </div>
+            </div>
+        </section>
+
+     
+        <section id="schedule" class="tab-content" aria-label="Календарь расписания">
+            <div class="card">
+                <h3>Недельное расписание</h3>
+                <div class="filter-row">
+                    <label for="scheduleFilter" class="visually-hidden">Фильтр расписания</label>
+                    <input type="text" id="scheduleFilter" placeholder="Фильтр по предмету...">
+                </div>
+                <div id="scheduleListContainer" class="schedule-container" aria-label="Список занятий"></div>
+            </div>
+        </section>
+
+
+        <section id="plan" class="tab-content" aria-label="Создание и управление задачами">
+            <div class="card">
+                <h3> Новая учебная задача</h3>
+                <form id="taskForm" aria-label="Форма создания задачи">
+                    <div class="form-group">
+                        <label for="taskName">Название задачи *</label>
+                        <input type="text" id="taskName" placeholder="Например: Подготовить презентацию по истории" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskSubject">Предмет / Курс</label>
+                        <input type="text" id="taskSubject" placeholder="Математика, Программирование, etc" value="Общий">
+                    </div>
+                    <div class="form-group">
+                        <label for="taskPriority">Приоритет</label>
+                        <select id="taskPriority" title="Выберите приоритет задачи">
+                            <option value="Высокий">Высокий</option>
+                            <option value="Средний" selected>Средний</option>
+                            <option value="Низкий">Низкий </option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskDeadline">Дедлайн</label>
+                        <input type="datetime-local" id="taskDeadline">
+                    </div>
+                    <div class="form-group">
+                        <label for="taskSubtasks">Подзадачи</label>
+                        <textarea id="taskSubtasks" rows="2" placeholder="Исследование, написание кода, тестирование"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Создать задачу</button>
+                </form>
+                <div class="tasks-section">
+                    <h3> Список задач </h3>
+                    <div class="filter-row">
+                        <label for="taskFilterSubject" class="visually-hidden">Фильтр задач по предмету</label>
+                        <input type="text" id="taskFilterSubject" placeholder="Фильтр по предмету">
+                        <button id="clearTaskFilter" class="btn-secondary btn">Сбросить</button>
+                    </div>
+                    <div id="allTasksList" class="tasks-container" aria-label="Список всех задач"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="materials" class="tab-content" aria-label="Управление учебными материалами">
+            <div class="card">
+                <h3> Материалы по курсам</h3>
+                <div class="form-group">
+                    <label for="newMaterialName">Название материала</label>
+                    <div class="material-input-group">
+                        <input type="text" id="newMaterialName" placeholder="Название материала" class="material-name-input">
+                        <input type="text" id="newMaterialCourse" placeholder="Курс/предмет" class="material-course-input">
+                        <button id="addMaterialBtn" class="btn"> Прикрепить</button>
+                    </div>
+                </div>
+                <div id="materialsList" class="materials-grid" aria-label="Список материалов"></div>
+            </div>
+        </section>
+
+        
+        <section id="settings" class="tab-content" aria-label="Настройки приложения">
+            <div class="card">
+                <h3> Персональные настройки</h3>
+                <div class="form-group">
+                    <label for="notifToggle"> Включить напоминания</label>
+                    <select id="notifToggle" title="Настройка уведомлений">
+                        <option value="enabled">Включены</option>
+                        <option value="disabled">Отключены</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="themeSelect"> Цветовая схема</label>
+                    <select id="themeSelect" title="Выбор цветовой темы">
+                        <option value="light">Светлая (по умолчанию)</option>
+                        <option value="dark">Тёмная</option>
+                    </select>
+                </div>
+                <p class="settings-note">Данные сохраняются в localStorage браузера.</p>
+            </div>
+        </section>
+    </main>
+    <footer class="app-footer">
+        Учебный планер · прототип
+    </footer>
+</div>
+
+<script src="js/storage.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/schedule.js"></script>
+<script src="js/tasks.js"></script>
+<script src="js/materials.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
